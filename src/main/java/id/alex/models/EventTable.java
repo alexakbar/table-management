@@ -44,29 +44,30 @@ import org.hibernate.annotations.GenericGenerator;
         public String name;
 
     @Column(name = "total_duration")
-    public int total_duration;
+    public Integer total_duration;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    public TableStatus tabletStatus;
+    public TableStatus tableStatus;
 
     @Column(name = "usage_capacity")
-    public int usage_capacity;
+    public Integer usage_capacity;
 
     @Column(name = "max_capacity")
-    public int max_capacity;
+    public Integer max_capacity;
 
     @Column(name = "total_usage")
-    public int total_usage;
+    public Integer total_usage;
 
     public EventTable() {}
 
-    public EventTable(String id, Outlet outlet, String name, int total_duration, TableStatus tabletStatus, int usage_capacity, int max_capacity, int total_usage) {
+    public EventTable(String id, String outletId, Outlet outlet, String name, Integer total_duration, TableStatus tableStatus, Integer usage_capacity, Integer max_capacity, Integer total_usage) {
         this.id = id;
+        this.outletId = outletId;
         this.outlet = outlet;
         this.name = name;
         this.total_duration = total_duration;
-        this.tabletStatus = tabletStatus;
+        this.tableStatus = tableStatus;
         this.usage_capacity = usage_capacity;
         this.max_capacity = max_capacity;
         this.total_usage = total_usage;

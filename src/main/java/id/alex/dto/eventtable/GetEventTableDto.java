@@ -9,11 +9,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 public class GetEventTableDto {
 
-    public static class Request{
-        @JsonProperty("total_duration")
-        public int total_duration;
-    }
-
     public String id;
     private String outlet_id;
     public String name;

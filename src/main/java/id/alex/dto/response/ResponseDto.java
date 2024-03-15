@@ -6,7 +6,7 @@ public class ResponseDto {
 
     public boolean err;
     public String msg;
-    public List<?> data;
+    public Object data;
 
     public ResponseDto() {};
 
@@ -14,5 +14,11 @@ public class ResponseDto {
         this.err = err;
         this.msg = msg;
         this.data = data;
+    }
+
+    public ResponseDto(boolean err, String msg, Object singleObject) {
+        this.err = err;
+        this.msg = msg;
+        this.data = List.of(singleObject); // Create a list containing a single object
     }
 }

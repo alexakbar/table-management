@@ -6,6 +6,7 @@ import id.alex.dto.eventtable.AddEventTableDto;
 import id.alex.dto.eventtable.GetEventTableDto;
 import id.alex.dto.eventtable.UpdateEventTableDto;
 import id.alex.handlers.ResponseHandler;
+import id.alex.models.mapping.EventTableMapping;
 import id.alex.services.EventTableService;
 import id.alex.services.OutletService;
 import jakarta.inject.Inject;
@@ -35,7 +36,7 @@ public class EventTableController {
     @GET
     @Path("{id}")
     public Response findById(@PathParam("id") String id) {
-        List<GetEventTableDto> list = eventTableService.findById(id);
+        EventTableMapping.GetEventTable list = eventTableService.findById(id);
         return responseHandler.response(Response.Status.OK, list);
     }
 

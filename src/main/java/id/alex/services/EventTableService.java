@@ -6,6 +6,7 @@ import id.alex.dto.eventtable.GetEventTableDto;
 import id.alex.dto.eventtable.UpdateEventTableDto;
 import id.alex.handlers.ValidationHandlerException;
 import id.alex.helpers.ValidateRequest;
+import id.alex.models.mapping.EventTableMapping;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -22,7 +23,7 @@ public class EventTableService {
         return  eventTableDao.getAll();
     }
 
-    public List<GetEventTableDto> findById(String Id){
+    public EventTableMapping.GetEventTable findById(String Id){
         return eventTableDao.findById(Id);
     }
 

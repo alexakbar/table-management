@@ -2,13 +2,13 @@ package id.alex.dto.tableusage;
 
 public class UpdateTableUsageDto {
     public String table_id;
-    public int capacity;
-    public int duration;
+    public Integer capacity;
+    public Integer duration;
     public boolean is_active;
 
     public UpdateTableUsageDto(){};
 
-    public UpdateTableUsageDto(String table_id, int capacity, int duration, boolean is_active) {
+    public UpdateTableUsageDto(String table_id, Integer capacity, Integer duration, boolean is_active) {
         this.table_id = table_id;
         this.capacity = capacity;
         this.duration = duration;

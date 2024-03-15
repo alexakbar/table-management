@@ -27,10 +27,10 @@ public class TableUsageDao {
         return entityManager.createNativeQuery(q, TableUsageMapping.GetTableUsage.MAPPING_NAME).getResultList();
     }
 
-    public List<GetTableUsageDto> findById(String id) {
+    public TableUsageMapping.GetTableUsage findById(String id) {
         StringBuilder q = new StringBuilder("SELECT * FROM table_usages where id = :id");
-        return  entityManager.createNativeQuery(q.toString(), TableUsageMapping.GetTableUsage.MAPPING_NAME).
-                setParameter("id", id).getResultList();
+        return  (TableUsageMapping.GetTableUsage) entityManager.createNativeQuery(q.toString(), TableUsageMapping.GetTableUsage.MAPPING_NAME).
+                setParameter("id", id).getSingleResult();
     }
 
     public void create(AddTableUsageDto request) {
@@ -45,18 +45,14 @@ public class TableUsageDao {
     public void update(String id, UpdateTableUsageDto request) {
         TableUsage tableUsage = TableUsage.findById(id);
         if (request.table_id != null) tableUsage.tableId = request.table_id;
-        if (request.capacity != 0) tableUsage.capacity = request.capacity;
-        if (request.duration != 0) tableUsage.duration = request.duration;
-        tableUsage.duration = request.duration;
+        if (request.capacity != null) tableUsage.capacity = request.capacity;
+        if (request.duration != null) tableUsage.duration = request.duration;
+        tableUsage.is_active = request.is_active;
     }
 
     @Transactional
     public void delete(String id) {
         TableUsage tableUsage = TableUsage.findById(id);
         tableUsage.delete();
-    }
-
-    public void useTable(String id, UseTableUsageDto request) {
-
     }
 }

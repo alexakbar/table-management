@@ -38,10 +38,10 @@ TableUsage extends PanacheEntityBase {
     public EventTable eventTable;
 
     @Column(name = "capacity")
-    public int capacity;
+    public Integer capacity;
 
     @Column(name = "duration")
-    public int duration;
+    public Integer duration;
 
     @Column(name = "is_active")
     public boolean is_active;

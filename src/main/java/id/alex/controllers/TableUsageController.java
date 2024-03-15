@@ -8,6 +8,7 @@ import id.alex.dto.tableusage.GetTableUsageDto;
 import id.alex.dto.tableusage.UpdateTableUsageDto;
 import id.alex.dto.tableusage.UseTableUsageDto;
 import id.alex.handlers.ResponseHandler;
+import id.alex.models.mapping.TableUsageMapping;
 import id.alex.services.EventTableService;
 import id.alex.services.TableUsageService;
 import jakarta.inject.Inject;
@@ -36,7 +37,7 @@ public class TableUsageController {
     @GET
     @Path("{id}")
     public Response findById(@PathParam("id") String id) {
-        List<GetTableUsageDto> list = tableUsageService.findById(id);
+        TableUsageMapping.GetTableUsage list = tableUsageService.findById(id);
         return responseHandler.response(Response.Status.OK, list);
     }
 
@@ -65,10 +66,18 @@ public class TableUsageController {
     }
 
     @POST
-    @Path("use-table/{tableid}")
+    @Path("use-table")
     @Transactional
-    public Response useTable(@PathParam("tableid") String id, UseTableUsageDto request) {
-        tableUsageService.useTable(id,request);
+    public Response useTable(UseTableUsageDto request) {
+        tableUsageService.useTable(request);
+        return responseHandler.response(Response.Status.OK);
+    }
+
+    @POST
+    @Path("{id}/finsih-table")
+    @Transactional
+    public Response finishTable(@PathParam("id") String id) {
+        tableUsageService.finishTable(id);
         return responseHandler.response(Response.Status.OK);
     }
 }
