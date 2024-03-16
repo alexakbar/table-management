@@ -2,6 +2,7 @@ package id.alex.controllers;
 
 import id.alex.dto.company.RequestCompanyDto;
 import id.alex.dto.company.GetCompanyDto;
+import id.alex.dto.company.RequestParamCompanyDto;
 import id.alex.handlers.ResponseHandler;
 import id.alex.models.mapping.CompanyMapping;
 import id.alex.services.CompanyService;
@@ -22,9 +23,9 @@ public class CompanyController {
     @Inject ResponseHandler responseHandler;
 
     @GET
-    public Response getAll()
+    public Response getAll(@BeanParam RequestParamCompanyDto request)
     {
-        List<GetCompanyDto> list = companyService.getAll();
+        List<GetCompanyDto> list = companyService.getAll(request);
         return responseHandler.success(list);
     }
 

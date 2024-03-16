@@ -3,6 +3,7 @@ package id.alex.services;
 import id.alex.dao.CompanyDao;
 import id.alex.dto.company.RequestCompanyDto;
 import id.alex.dto.company.GetCompanyDto;
+import id.alex.dto.company.RequestParamCompanyDto;
 import id.alex.handlers.ValidationHandlerException;
 import id.alex.helpers.ValidateRequest;
 import id.alex.models.mapping.CompanyMapping;
@@ -20,8 +21,8 @@ public class CompanyService {
     @Inject
     CompanyDao companyDao;
 
-    public List<GetCompanyDto> getAll() {
-        return  companyDao.getAll();
+    public List<GetCompanyDto> getAll(RequestParamCompanyDto request) {
+        return  companyDao.getAll(request);
     }
 
     public CompanyMapping.GetCompany findById(String Id){
