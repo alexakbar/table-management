@@ -3,6 +3,7 @@ package id.alex.services;
 import id.alex.dao.EventTableDao;
 import id.alex.dto.eventtable.AddEventTableDto;
 import id.alex.dto.eventtable.GetEventTableDto;
+import id.alex.dto.eventtable.RequestParamEventTableDto;
 import id.alex.dto.eventtable.UpdateEventTableDto;
 import id.alex.handlers.ResponseHandler;
 import id.alex.handlers.ValidationHandlerException;
@@ -22,8 +23,8 @@ public class EventTableService {
     @Inject
     ResponseHandler responseHandler;
 
-    public List<GetEventTableDto> getAll() {
-        return eventTableDao.getAll();
+    public List<GetEventTableDto> getAll(RequestParamEventTableDto request) {
+        return eventTableDao.getAll(request);
     }
 
     public EventTableMapping.GetEventTable findById(String Id){

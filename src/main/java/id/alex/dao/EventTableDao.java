@@ -2,8 +2,10 @@ package id.alex.dao;
 
 import id.alex.dto.eventtable.AddEventTableDto;
 import id.alex.dto.eventtable.GetEventTableDto;
+import id.alex.dto.eventtable.RequestParamEventTableDto;
 import id.alex.dto.eventtable.UpdateEventTableDto;
 import id.alex.enums.TableStatus;
+import id.alex.helpers.UtilsHelper;
 import id.alex.models.EventTable;
 import id.alex.models.mapping.EventTableMapping;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -17,9 +19,22 @@ import java.util.List;
 public class EventTableDao {
     @Inject
     EntityManager entityManager;
-    public List<GetEventTableDto> getAll() {
-        String q = "SELECT * FROM event_tables";
-        return entityManager.createNativeQuery(q, EventTableMapping.GetEventTable.MAPPING_NAME).getResultList();
+    public List<GetEventTableDto> getAll(RequestParamEventTableDto request) {
+        StringBuilder q = new StringBuilder("SELECT * FROM event_tables ");
+        q.append("WHERE 1=1 ");
+        if (!UtilsHelper.isNullOrEmpty(request.name)) {
+            q.append("AND lower(name) LIKE '%").append(request.name.toLowerCase()).append("%' ");
+        }
+
+        if (!UtilsHelper.isNullOrEmpty(request.outlet_id)) {
+            q.append("AND lower(outlet_id) LIKE '%").append(request.outlet_id.toLowerCase()).append("%' ");
+        }
+
+        if (!UtilsHelper.isNullOrEmpty(request.status.toString())) {
+            q.append("AND lower(status) LIKE '%").append(request.status.toString().toLowerCase()).append("%' ");
+        }
+
+        return entityManager.createNativeQuery(q.toString(), EventTableMapping.GetEventTable.MAPPING_NAME).getResultList();
     }
 
     public EventTableMapping.GetEventTable findById(String id) {

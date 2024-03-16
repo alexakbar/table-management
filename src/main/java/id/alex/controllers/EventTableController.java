@@ -2,6 +2,7 @@ package id.alex.controllers;
 
 import id.alex.dto.eventtable.AddEventTableDto;
 import id.alex.dto.eventtable.GetEventTableDto;
+import id.alex.dto.eventtable.RequestParamEventTableDto;
 import id.alex.dto.eventtable.UpdateEventTableDto;
 import id.alex.dto.outlet.report.GetReportTableUsageDto;
 import id.alex.handlers.ResponseHandler;
@@ -25,9 +26,9 @@ public class EventTableController {
     ResponseHandler responseHandler;
 
     @GET
-    public Response getAll()
+    public Response getAll(@BeanParam RequestParamEventTableDto request)
     {
-        List<GetEventTableDto> list = eventTableService.getAll();
+        List<GetEventTableDto> list = eventTableService.getAll(request);
         return responseHandler.success(list);
     }
 
