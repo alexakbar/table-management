@@ -70,7 +70,7 @@ public class TableUsageController {
     }
 
     @POST
-    @Path("{id}/finsih-table")
+    @Path("{id}/finish-table")
     @Transactional
     public Response finishTable(@PathParam("id") String id) {
         return tableUsageService.finishTable(id);

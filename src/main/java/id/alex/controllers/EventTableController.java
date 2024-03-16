@@ -1,9 +1,6 @@
 package id.alex.controllers;
 
-import id.alex.dto.eventtable.AddEventTableDto;
-import id.alex.dto.eventtable.GetEventTableDto;
-import id.alex.dto.eventtable.RequestParamEventTableDto;
-import id.alex.dto.eventtable.UpdateEventTableDto;
+import id.alex.dto.eventtable.*;
 import id.alex.dto.outlet.report.GetReportTableUsageDto;
 import id.alex.handlers.ResponseHandler;
 import id.alex.models.mapping.EventTableMapping;
@@ -61,5 +58,11 @@ public class EventTableController {
     public Response delete(@PathParam("id") String id){
         eventTableService.delete(id);
         return responseHandler.success();
+    }
+
+    @POST
+    @Path("{id}/change-status")
+    public Response changeStatus(@PathParam("id") String id, ChangeStatusEventTableDto request) {
+        return eventTableService.changeStatus(id, request);
     }
 }

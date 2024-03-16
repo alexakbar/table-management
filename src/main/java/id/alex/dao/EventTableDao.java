@@ -1,13 +1,11 @@
 package id.alex.dao;
 
-import id.alex.dto.eventtable.AddEventTableDto;
-import id.alex.dto.eventtable.GetEventTableDto;
-import id.alex.dto.eventtable.RequestParamEventTableDto;
-import id.alex.dto.eventtable.UpdateEventTableDto;
+import id.alex.dto.eventtable.*;
 import id.alex.enums.TableStatus;
 import id.alex.helpers.UtilsHelper;
 import id.alex.models.EventTable;
 import id.alex.models.mapping.EventTableMapping;
+import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -67,5 +65,10 @@ public class EventTableDao {
     public void delete(String id) {
         EventTable eventTable = EventTable.findById(id);
         eventTable.delete();
+    }
+
+    public void changeStatus(String id, ChangeStatusEventTableDto request) {
+        EventTable eventTable = EventTable.findById(id);
+        if (request.status != null) eventTable.tableStatus = request.status;
     }
 }

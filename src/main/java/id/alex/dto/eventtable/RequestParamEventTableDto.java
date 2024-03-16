@@ -18,6 +18,6 @@ public class RequestParamEventTableDto {
 
     @Parameter
     @RestQuery
-    @DefaultValue("")
+    @DefaultValue("available")
     public TableStatus status;
 }

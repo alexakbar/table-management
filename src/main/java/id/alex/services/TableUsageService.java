@@ -41,6 +41,10 @@ public class TableUsageService {
         return tableUsageDao.findById(Id);
     }
 
+    public TableUsageMapping.GetTableUsage findActiveByIdTable(String id) {
+        return tableUsageDao.findActiveByIdTable(id);
+    }
+
     public void create(AddTableUsageDto request) throws ValidationHandlerException {
         validateRequest.validate(request);
         tableUsageDao.create(request);
@@ -63,7 +67,7 @@ public class TableUsageService {
         }
 
         if (request.capacity > eventTable.max_capacity) {
-            return responseHandler.error("Max Capacity");
+            return responseHandler.error("Maximum Capacity");
         }
 
         if (!eventTable.status.equals("available") ) {
@@ -107,7 +111,8 @@ public class TableUsageService {
 
         // sum duration usage
         Duration durationUsage = Duration.between(createdAt, now);
-        int hours = Math.toIntExact(durationUsage.toHoursPart());
+        // FIXME: development test for millis
+        int hours = Math.toIntExact(durationUsage.toSecondsPart());
 
         // active false
         UpdateTableUsageDto updateTableUsageDto = new UpdateTableUsageDto();

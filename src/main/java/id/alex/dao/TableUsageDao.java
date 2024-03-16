@@ -12,6 +12,7 @@ import id.alex.models.mapping.TableUsageMapping;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
@@ -40,6 +41,19 @@ public class TableUsageDao {
         StringBuilder q = new StringBuilder("SELECT * FROM table_usages where id = :id");
         return  (TableUsageMapping.GetTableUsage) entityManager.createNativeQuery(q.toString(), TableUsageMapping.GetTableUsage.MAPPING_NAME).
                 setParameter("id", id).getSingleResult();
+    }
+
+    public TableUsageMapping.GetTableUsage findActiveByIdTable(String id) {
+        StringBuilder q = new StringBuilder("SELECT * FROM table_usages where table_id = :table_id and is_active = true");
+        Query execute = entityManager.createNativeQuery(q.toString(), TableUsageMapping.GetTableUsage.MAPPING_NAME)
+                .setParameter("table_id", id);
+
+        if (execute.getResultList().isEmpty()){
+            return null;
+        } else {
+            return (TableUsageMapping.GetTableUsage) execute.getResultList().get(0);
+
+        }
     }
 
     public void create(AddTableUsageDto request) {
