@@ -5,6 +5,7 @@ import id.alex.dao.OutletDao;
 import id.alex.dto.outlet.AddOutletDto;
 import id.alex.dto.outlet.GetOutletDto;
 import id.alex.dto.outlet.RequestOutletDto;
+import id.alex.dto.outlet.RequestParamOutletDto;
 import id.alex.dto.outlet.report.GetReportTableUsageDto;
 import id.alex.dto.outlet.report.ResponseReportTableUsageDto;
 import id.alex.handlers.ValidationHandlerException;
@@ -26,8 +27,9 @@ public class OutletService {
     @Inject
     OutletDao outletDao;
 
-    public List<GetOutletDto.Response> getAll()  {
-        List<OutletMapping.GetOutlet> response = outletDao.getAll();
+    public List<GetOutletDto.Response> getAll(RequestParamOutletDto request)  {
+        List<OutletMapping.GetOutlet> response = outletDao.getAll(request);
+
         return getResponseList(response);
     }
 
@@ -44,7 +46,7 @@ public class OutletService {
             OutletMapping.GetOutlet outlet = outlets.get(0);
             data.id = outlet.id;
             data.name = outlet.name;
-            data.companyId = outlet.company_id;
+            data.company_id = outlet.company_id;
             data.created_at = outlet.created_at;
             data.updated_at = outlet.updated_at;
             for (OutletMapping.GetOutlet row : outlets){

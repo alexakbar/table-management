@@ -6,6 +6,7 @@ import id.alex.dto.company.RequestCompanyDto;
 import id.alex.dto.outlet.AddOutletDto;
 import id.alex.dto.outlet.GetOutletDto;
 import id.alex.dto.outlet.RequestOutletDto;
+import id.alex.dto.outlet.RequestParamOutletDto;
 import id.alex.dto.outlet.report.GetReportTableUsageDto;
 import id.alex.dto.outlet.report.ResponseReportTableUsageDto;
 import id.alex.handlers.ResponseHandler;
@@ -30,8 +31,8 @@ public class OutletController {
     ResponseHandler responseHandler;
 
     @GET
-    public Response getAll() {
-        List<GetOutletDto.Response> list = outletService.getAll();
+    public Response getAll(@BeanParam RequestParamOutletDto request) {
+        List<GetOutletDto.Response> list = outletService.getAll(request);
         return responseHandler.success(list);
     }
 

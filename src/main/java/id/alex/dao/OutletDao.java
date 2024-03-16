@@ -2,7 +2,9 @@ package id.alex.dao;
 
 import id.alex.dto.outlet.AddOutletDto;
 import id.alex.dto.outlet.RequestOutletDto;
+import id.alex.dto.outlet.RequestParamOutletDto;
 import id.alex.dto.outlet.report.GetReportTableUsageDto;
+import id.alex.helpers.UtilsHelper;
 import id.alex.models.Outlet;
 import id.alex.models.mapping.OutletMapping;
 import io.quarkus.logging.Log;
@@ -26,11 +28,21 @@ public class OutletDao {
                 "e.usage_capacity table_usage_capacity, " +
                 "e.max_capacity table_max_capacity " +
                 "from outlets o " +
-                "left join event_tables e on e.outlet_id = o.id");
+                "left join event_tables e on e.outlet_id = o.id ");
     }
 
-    public List<OutletMapping.GetOutlet> getAll() {
-        return entityManager.createNativeQuery(baseQuery().toString(),OutletMapping.GetOutlet.MAPPING_NAME).getResultList();
+    public List<OutletMapping.GetOutlet> getAll(RequestParamOutletDto request) {
+        StringBuilder q = baseQuery();
+        q.append("WHERE 1=1 ");
+        if (!UtilsHelper.isNullOrEmpty(request.name)) {
+            q.append("AND lower(o.name) LIKE '%").append(request.name.toLowerCase()).append("%' ");
+        }
+
+        if (!UtilsHelper.isNullOrEmpty(request.company_id)) {
+            q.append("AND lower(o.company_id) LIKE '%").append(request.company_id.toLowerCase()).append("%' ");
+        }
+
+        return entityManager.createNativeQuery(q.toString(),OutletMapping.GetOutlet.MAPPING_NAME).getResultList();
     }
 
     public List<OutletMapping.GetOutlet> findById(String id) {

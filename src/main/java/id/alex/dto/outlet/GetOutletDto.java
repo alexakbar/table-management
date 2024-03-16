@@ -14,7 +14,7 @@ public class GetOutletDto {
     public static class Response {
         public String id;
         public String name;
-        public String companyId;
+        public String company_id;
 
         public List<TableEvent> tableEvents;
 
