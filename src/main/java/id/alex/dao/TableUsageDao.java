@@ -3,10 +3,8 @@ package id.alex.dao;
 import id.alex.dto.eventtable.AddEventTableDto;
 import id.alex.dto.eventtable.GetEventTableDto;
 import id.alex.dto.eventtable.UpdateEventTableDto;
-import id.alex.dto.tableusage.AddTableUsageDto;
-import id.alex.dto.tableusage.GetTableUsageDto;
-import id.alex.dto.tableusage.UpdateTableUsageDto;
-import id.alex.dto.tableusage.UseTableUsageDto;
+import id.alex.dto.tableusage.*;
+import id.alex.helpers.UtilsHelper;
 import id.alex.models.EventTable;
 import id.alex.models.TableUsage;
 import id.alex.models.mapping.EventTableMapping;
@@ -22,9 +20,20 @@ import java.util.List;
 public class TableUsageDao {
     @Inject
     EntityManager entityManager;
-    public List<GetTableUsageDto> getAll() {
-        String q = "SELECT * FROM table_usages";
-        return entityManager.createNativeQuery(q, TableUsageMapping.GetTableUsage.MAPPING_NAME).getResultList();
+    public List<GetTableUsageDto> getAll(RequestParamTableUsageDto request) {
+        StringBuilder q = new StringBuilder("SELECT * FROM table_usages ");
+        q.append("WHERE 1=1 ");
+        if (!UtilsHelper.isNullOrEmpty(request.table_id)) {
+            q.append("AND lower(table_id) LIKE '%").append(request.table_id.toLowerCase()).append("%' ");
+        }
+
+        if (request.is_active) {
+            q.append("AND is_active = true ");
+        } else {
+            q.append("AND is_active = false ");
+        }
+
+        return entityManager.createNativeQuery(q.toString(), TableUsageMapping.GetTableUsage.MAPPING_NAME).getResultList();
     }
 
     public TableUsageMapping.GetTableUsage findById(String id) {

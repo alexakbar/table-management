@@ -5,10 +5,7 @@ import id.alex.dao.TableUsageDao;
 import id.alex.dto.eventtable.UpdateEventTableDto;
 import id.alex.dto.outlet.GetOutletDto;
 import id.alex.dto.outlet.RequestOutletDto;
-import id.alex.dto.tableusage.AddTableUsageDto;
-import id.alex.dto.tableusage.GetTableUsageDto;
-import id.alex.dto.tableusage.UpdateTableUsageDto;
-import id.alex.dto.tableusage.UseTableUsageDto;
+import id.alex.dto.tableusage.*;
 import id.alex.enums.TableStatus;
 import id.alex.handlers.ResponseHandler;
 import id.alex.handlers.ValidationHandlerException;
@@ -36,8 +33,8 @@ public class TableUsageService {
     @Inject
     ResponseHandler responseHandler;
 
-    public List<GetTableUsageDto> getAll() {
-        return  tableUsageDao.getAll();
+    public List<GetTableUsageDto> getAll(RequestParamTableUsageDto request) {
+        return  tableUsageDao.getAll(request);
     }
 
     public TableUsageMapping.GetTableUsage findById(String Id){

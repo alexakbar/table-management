@@ -3,10 +3,7 @@ package id.alex.controllers;
 import id.alex.dto.eventtable.AddEventTableDto;
 import id.alex.dto.eventtable.GetEventTableDto;
 import id.alex.dto.eventtable.UpdateEventTableDto;
-import id.alex.dto.tableusage.AddTableUsageDto;
-import id.alex.dto.tableusage.GetTableUsageDto;
-import id.alex.dto.tableusage.UpdateTableUsageDto;
-import id.alex.dto.tableusage.UseTableUsageDto;
+import id.alex.dto.tableusage.*;
 import id.alex.handlers.ResponseHandler;
 import id.alex.models.mapping.TableUsageMapping;
 import id.alex.services.EventTableService;
@@ -28,9 +25,9 @@ public class TableUsageController {
     ResponseHandler responseHandler;
 
     @GET
-    public Response getAll()
+    public Response getAll(@BeanParam RequestParamTableUsageDto request)
     {
-        List<GetTableUsageDto> list = tableUsageService.getAll();
+        List<GetTableUsageDto> list = tableUsageService.getAll(request);
         return responseHandler.success(list);
     }
 
