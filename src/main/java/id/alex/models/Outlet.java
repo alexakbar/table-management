@@ -27,7 +27,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "outlets")
-public class Outlet extends PanacheEntityBase {
+public class Outlet extends BaseModel {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")

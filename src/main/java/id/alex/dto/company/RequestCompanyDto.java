@@ -4,8 +4,6 @@ import io.smallrye.common.constraint.NotNull;
 import jakarta.validation.constraints.NotBlank;
 
 public class RequestCompanyDto {
-
-    @NotBlank(message = "name is required")
     public String name;
     public String address;
     public  String tlp;

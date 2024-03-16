@@ -9,7 +9,10 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
+import static java.time.ZoneOffset.UTC;
 
 @ApplicationScoped
 public class CompanyDao {
@@ -29,6 +32,8 @@ public class CompanyDao {
     }
 
     public void create(RequestCompanyDto request) {
+        LocalDateTime now = LocalDateTime.now(UTC);
+
         Company company = new Company();
         company.name = request.name;
         company.address = request.address;
@@ -38,7 +43,7 @@ public class CompanyDao {
 
     public void updateCompany(String id, RequestCompanyDto request) {
         Company company = Company.findById(id);
-        company.name = request.name;
+        if (request.name != null) company.name = request.name;
         if (request.address != null) company.address = request.address;
         if (request.tlp != null) company.tlp = request.tlp;
     }

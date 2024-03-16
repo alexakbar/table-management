@@ -26,7 +26,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "event_tables")
-    public class EventTable extends PanacheEntityBase {
+    public class EventTable extends BaseModel {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")

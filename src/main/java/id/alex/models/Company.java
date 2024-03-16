@@ -14,13 +14,15 @@ import org.hibernate.annotations.GenericGenerator;
                         @ColumnResult(name = "name"),
                         @ColumnResult(name = "address"),
                         @ColumnResult(name = "tlp"),
+                        @ColumnResult(name = "created_at"),
+                        @ColumnResult(name = "updated_at")
                 }
         )
 )
 
 @Entity
 @Table(name = "companies")
-public class Company extends PanacheEntityBase {
+public class Company extends BaseModel {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
