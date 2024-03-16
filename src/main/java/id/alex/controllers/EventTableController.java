@@ -1,14 +1,12 @@
 package id.alex.controllers;
 
-import id.alex.dto.company.GetCompanyDto;
-import id.alex.dto.company.RequestCompanyDto;
 import id.alex.dto.eventtable.AddEventTableDto;
 import id.alex.dto.eventtable.GetEventTableDto;
 import id.alex.dto.eventtable.UpdateEventTableDto;
+import id.alex.dto.outlet.report.GetReportTableUsageDto;
 import id.alex.handlers.ResponseHandler;
 import id.alex.models.mapping.EventTableMapping;
 import id.alex.services.EventTableService;
-import id.alex.services.OutletService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;

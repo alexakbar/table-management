@@ -4,6 +4,7 @@ import id.alex.dao.EventTableDao;
 import id.alex.dto.eventtable.AddEventTableDto;
 import id.alex.dto.eventtable.GetEventTableDto;
 import id.alex.dto.eventtable.UpdateEventTableDto;
+import id.alex.handlers.ResponseHandler;
 import id.alex.handlers.ValidationHandlerException;
 import id.alex.helpers.ValidateRequest;
 import id.alex.models.mapping.EventTableMapping;
@@ -18,9 +19,11 @@ public class EventTableService {
     ValidateRequest validateRequest;
     @Inject
     EventTableDao eventTableDao;
+    @Inject
+    ResponseHandler responseHandler;
 
     public List<GetEventTableDto> getAll() {
-        return  eventTableDao.getAll();
+        return eventTableDao.getAll();
     }
 
     public EventTableMapping.GetEventTable findById(String Id){

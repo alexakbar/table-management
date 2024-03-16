@@ -43,4 +43,33 @@ public class OutletMapping {
             this.id = id;
         }
     }
+
+    public static class ReportUsageTable {
+        public static final String MAPPING_NAME = "ReportUsageTable";
+
+        public String id;
+
+        public String name;
+        public String company_id;
+        public String table_name;
+        public Integer total_usage;
+        public Integer total_duration;
+
+        public ReportUsageTable(String id, String name, String company_id, String table_name, Integer total_usage, Integer total_duration) {
+            this.id = id;
+            this.name = name;
+            this.company_id = company_id;
+            this.table_name = table_name;
+            this.total_usage = total_usage;
+            this.total_duration = total_duration;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+    }
 }

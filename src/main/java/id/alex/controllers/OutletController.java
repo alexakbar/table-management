@@ -6,6 +6,8 @@ import id.alex.dto.company.RequestCompanyDto;
 import id.alex.dto.outlet.AddOutletDto;
 import id.alex.dto.outlet.GetOutletDto;
 import id.alex.dto.outlet.RequestOutletDto;
+import id.alex.dto.outlet.report.GetReportTableUsageDto;
+import id.alex.dto.outlet.report.ResponseReportTableUsageDto;
 import id.alex.handlers.ResponseHandler;
 import id.alex.models.mapping.OutletMapping;
 import id.alex.services.OutletService;
@@ -62,5 +64,15 @@ public class OutletController {
     public Response delete(@PathParam("id") String id){
         outletService.delete(id);
         return responseHandler.success();
+    }
+
+    @POST
+    @Path("table-usage-report")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Response reportUsage (GetReportTableUsageDto request){
+        List<ResponseReportTableUsageDto.Response> list = outletService.reportUsage(request);
+
+        return responseHandler.success(list);
     }
 }

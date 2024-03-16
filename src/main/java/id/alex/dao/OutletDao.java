@@ -1,14 +1,11 @@
 package id.alex.dao;
 
-import id.alex.dto.company.GetCompanyDto;
-import id.alex.dto.company.RequestCompanyDto;
 import id.alex.dto.outlet.AddOutletDto;
-import id.alex.dto.outlet.GetOutletDto;
 import id.alex.dto.outlet.RequestOutletDto;
-import id.alex.models.Company;
+import id.alex.dto.outlet.report.GetReportTableUsageDto;
 import id.alex.models.Outlet;
-import id.alex.models.mapping.CompanyMapping;
 import id.alex.models.mapping.OutletMapping;
+import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -59,5 +56,41 @@ public class OutletDao {
     public void delete(String id) {
         Outlet outlet = Outlet.findById(id);
         outlet.delete();
+    }
+
+    public List<OutletMapping.ReportUsageTable> reportUsage(GetReportTableUsageDto request){
+        StringBuilder q = new StringBuilder("SELECT " +
+                "o.id, " +
+                "o.name, " +
+                "o.company_id, " +
+                "et.name as table_name, ");
+
+        if (request.start_date != null && request.end_date != null) {
+            q.append("coalesce(sum(tu.duration), 0) as total_duration, " +
+                    "coalesce(count(tu.id), 0) as total_usage ");
+        } else {
+            q.append("et.total_duration, " +
+                    "et.total_usage ");
+        }
+
+        q.append("FROM outlets o " +
+                "join event_tables et on et.outlet_id = o.id ");
+
+        q.append("left join table_usages tu on tu.table_id = et.id and is_active = false ");
+
+        if (request.start_date != null && request.end_date != null) {
+            q.append("AND DATE(tu.created_at) BETWEEN :start AND :end ");
+            q.append("group by o.id, o.name,o.company_id, et.name, et.total_usage, et.total_duration");
+
+           return entityManager.createNativeQuery(q.toString(), OutletMapping.ReportUsageTable.MAPPING_NAME)
+                   .setParameter("start", request.start_date)
+                   .setParameter("end", request.end_date)
+                   .getResultList();
+        } else {
+            q.append("group by o.id, o.name,o.company_id, et.name, et.total_usage, et.total_duration");
+            return entityManager
+                    .createNativeQuery(q.toString(), OutletMapping.ReportUsageTable.MAPPING_NAME)
+                    .getResultList();
+        }
     }
 }

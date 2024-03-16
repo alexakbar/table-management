@@ -1,6 +1,7 @@
 package id.alex.models;
 
 import id.alex.models.mapping.CompanyMapping;
+import id.alex.models.mapping.EventTableMapping;
 import id.alex.models.mapping.OutletMapping;
 import id.alex.services.OutletService;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
@@ -23,6 +24,21 @@ import java.util.List;
                         @ColumnResult(name = "table_max_capacity", type = Integer.class),
                         @ColumnResult(name = "created_at"),
                         @ColumnResult(name = "updated_at")
+                }
+        )
+)
+
+@SqlResultSetMapping(
+        name = OutletMapping.ReportUsageTable.MAPPING_NAME,
+        classes = @ConstructorResult(
+                targetClass= OutletMapping.ReportUsageTable.class,
+                columns= {
+                        @ColumnResult(name = "id"),
+                        @ColumnResult(name = "name"),
+                        @ColumnResult(name = "company_id"),
+                        @ColumnResult(name = "table_name"),
+                        @ColumnResult(name = "total_usage", type = Integer.class),
+                        @ColumnResult(name = "total_duration", type = Integer.class)
                 }
         )
 )

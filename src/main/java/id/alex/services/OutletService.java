@@ -1,21 +1,20 @@
 package id.alex.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import id.alex.dao.OutletDao;
 import id.alex.dto.outlet.AddOutletDto;
 import id.alex.dto.outlet.GetOutletDto;
 import id.alex.dto.outlet.RequestOutletDto;
+import id.alex.dto.outlet.report.GetReportTableUsageDto;
+import id.alex.dto.outlet.report.ResponseReportTableUsageDto;
 import id.alex.handlers.ValidationHandlerException;
 import id.alex.helpers.ValidateRequest;
 import id.alex.models.mapping.OutletMapping;
-import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -87,5 +86,37 @@ public class OutletService {
 
     public void delete(String id) {
         outletDao.delete(id);
+    }
+
+    public List<ResponseReportTableUsageDto.Response> reportUsage(GetReportTableUsageDto request) {
+
+        List<ResponseReportTableUsageDto.Response> dataResult = new ArrayList<>();
+        List<OutletMapping.ReportUsageTable> response = outletDao.reportUsage(request);
+
+        Map<String, List<OutletMapping.ReportUsageTable>> outletsById = response.stream()
+                .collect(Collectors.groupingBy(OutletMapping.ReportUsageTable::getId));
+
+        for (Map.Entry<String, List<OutletMapping.ReportUsageTable>> entry : outletsById.entrySet()) {
+            List<OutletMapping.ReportUsageTable> outlets = entry.getValue();
+            OutletMapping.ReportUsageTable outlet = outlets.get(0);
+
+            ResponseReportTableUsageDto.Response data = new ResponseReportTableUsageDto.Response();
+            data.id = outlet.id;
+            data.name = outlet.name;
+            data.company_id = outlet.company_id;
+            for (OutletMapping.ReportUsageTable row : outlets) {
+                if (row != null){
+                    ResponseReportTableUsageDto.TableEvent tableEvent = new ResponseReportTableUsageDto.TableEvent();
+                    tableEvent.name = row.table_name;
+                    tableEvent.total_duration = row.total_duration;
+                    tableEvent.total_usage = row.total_usage;
+
+                    data.table_events.add(tableEvent);
+                }
+            }
+            dataResult.add(data);
+        }
+
+        return dataResult;
     }
 }

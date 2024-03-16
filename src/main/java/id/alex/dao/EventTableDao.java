@@ -6,7 +6,6 @@ import id.alex.dto.eventtable.UpdateEventTableDto;
 import id.alex.enums.TableStatus;
 import id.alex.models.EventTable;
 import id.alex.models.mapping.EventTableMapping;
-import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
