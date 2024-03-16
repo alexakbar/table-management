@@ -46,7 +46,7 @@ public class EventTableDao {
         if (request.total_usage != null) eventTable.total_usage = request.total_usage;
         if (request.status != null) eventTable.tableStatus = request.status;
         if (request.total_duration != null) eventTable.total_duration = request.total_duration;
-        if (request.usage_capacity != null) eventTable.usage_capacity = request.total_usage;
+        if (request.usage_capacity != null) eventTable.usage_capacity = request.usage_capacity;
     }
 
     @Transactional

@@ -25,14 +25,14 @@ public class CompanyController {
     public Response getAll()
     {
         List<GetCompanyDto> list = companyService.getAll();
-        return responseHandler.response(Response.Status.OK, list);
+        return responseHandler.success(list);
     }
 
     @GET
     @Path("{id}")
     public Response findById(@PathParam("id") String id) {
-        CompanyMapping.GetCompany list = companyService.findById(id);
-        return responseHandler.response(Response.Status.OK, list);
+        CompanyMapping.GetCompany company = companyService.findById(id);
+        return responseHandler.success(company);
     }
 
     @POST
@@ -40,7 +40,7 @@ public class CompanyController {
     @Transactional
     public Response createCompany(RequestCompanyDto request) {
         companyService.create(request);
-        return responseHandler.response(Response.Status.OK);
+        return responseHandler.success();
     }
 
     @PUT
@@ -49,13 +49,13 @@ public class CompanyController {
     @Transactional
     public Response update(@PathParam("id") String id, RequestCompanyDto request) {
         companyService.updateCompany(id, request);
-        return responseHandler.response(Response.Status.OK);
+        return responseHandler.success();
     }
 
     @DELETE
     @Path("{id}")
     public Response delete(@PathParam("id") String id){
         companyService.delete(id);
-        return responseHandler.response(Response.Status.OK);
+        return responseHandler.success();
     }
 }

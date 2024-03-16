@@ -19,7 +19,9 @@ import org.hibernate.annotations.GenericGenerator;
                         @ColumnResult(name = "status"),
                         @ColumnResult(name = "usage_capacity"),
                         @ColumnResult(name = "max_capacity"),
-                        @ColumnResult(name = "total_usage")
+                        @ColumnResult(name = "total_usage"),
+                        @ColumnResult(name = "created_at"),
+                        @ColumnResult(name = "updated_at")
                 }
         )
 )

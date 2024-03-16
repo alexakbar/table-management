@@ -3,6 +3,7 @@ package id.alex.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import id.alex.dto.company.GetCompanyDto;
 import id.alex.dto.company.RequestCompanyDto;
+import id.alex.dto.outlet.AddOutletDto;
 import id.alex.dto.outlet.GetOutletDto;
 import id.alex.dto.outlet.RequestOutletDto;
 import id.alex.handlers.ResponseHandler;
@@ -29,22 +30,22 @@ public class OutletController {
     @GET
     public Response getAll() {
         List<GetOutletDto.Response> list = outletService.getAll();
-        return responseHandler.response(Response.Status.OK,list);
+        return responseHandler.success(list);
     }
 
     @GET
     @Path("{id}")
     public Response findById(@PathParam("id") String id) {
         List<GetOutletDto.Response> list = outletService.findById(id);
-        return responseHandler.response(Response.Status.OK, list);
+        return responseHandler.success(list);
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public Response create(RequestOutletDto request) {
+    public Response create(AddOutletDto request) {
         outletService.create(request);
-        return responseHandler.response(Response.Status.OK);
+        return responseHandler.success();
     }
 
     @PUT
@@ -53,13 +54,13 @@ public class OutletController {
     @Transactional
     public Response update(@PathParam("id") String id, RequestOutletDto request) {
         outletService.updateCompany(id, request);
-        return responseHandler.response(Response.Status.OK);
+        return responseHandler.success();
     }
 
     @DELETE
     @Path("{id}")
     public Response delete(@PathParam("id") String id){
         outletService.delete(id);
-        return responseHandler.response(Response.Status.OK);
+        return responseHandler.success();
     }
 }

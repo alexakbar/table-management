@@ -21,6 +21,8 @@ import java.util.List;
                         @ColumnResult(name = "table_status"),
                         @ColumnResult(name = "table_usage_capacity",  type = Integer.class),
                         @ColumnResult(name = "table_max_capacity", type = Integer.class),
+                        @ColumnResult(name = "created_at"),
+                        @ColumnResult(name = "updated_at")
                 }
         )
 )

@@ -16,6 +16,8 @@ import org.hibernate.annotations.GenericGenerator;
                         @ColumnResult(name = "capacity"),
                         @ColumnResult(name = "duration"),
                         @ColumnResult(name = "is_active"),
+                        @ColumnResult(name = "created_at"),
+                        @ColumnResult(name = "updated_at")
                 }
         )
 )

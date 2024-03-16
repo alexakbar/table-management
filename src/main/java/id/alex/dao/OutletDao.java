@@ -2,6 +2,7 @@ package id.alex.dao;
 
 import id.alex.dto.company.GetCompanyDto;
 import id.alex.dto.company.RequestCompanyDto;
+import id.alex.dto.outlet.AddOutletDto;
 import id.alex.dto.outlet.GetOutletDto;
 import id.alex.dto.outlet.RequestOutletDto;
 import id.alex.models.Company;
@@ -41,7 +42,7 @@ public class OutletDao {
                 setParameter("id", id).getResultList();
     }
 
-    public void create(RequestOutletDto request) {
+    public void create(AddOutletDto request) {
         Outlet outlet = new Outlet();
         outlet.name = request.name;
         outlet.companyId = request.company_id;

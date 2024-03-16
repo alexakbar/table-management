@@ -2,6 +2,8 @@ package id.alex.models.mapping;
 
 import id.alex.enums.TableStatus;
 
+import java.util.Date;
+
 public class EventTableMapping {
 
     public static class GetEventTable {
@@ -10,13 +12,15 @@ public class EventTableMapping {
         public String id;
         private String outlet_id;
         public String name;
-        public int total_duration;
+        public Integer total_duration;
         public String status;
-        public int usage_capacity;
-        public int max_capacity;
-        public int total_usage;
+        public Integer usage_capacity;
+        public Integer max_capacity;
+        public Integer total_usage;
+        public Date created_at;
+        public Date updated_at;
 
-        public GetEventTable(String id, String outlet_id, String name, int total_duration, String status, int usage_capacity, int max_capacity, int total_usage) {
+        public GetEventTable(String id, String outlet_id, String name, Integer total_duration, String status, Integer usage_capacity, Integer max_capacity, Integer total_usage, Date created_at, Date updated_at) {
             this.id = id;
             this.outlet_id = outlet_id;
             this.name = name;
@@ -25,6 +29,8 @@ public class EventTableMapping {
             this.usage_capacity = usage_capacity;
             this.max_capacity = max_capacity;
             this.total_usage = total_usage;
+            this.created_at = created_at;
+            this.updated_at = updated_at;
         }
     }
 }

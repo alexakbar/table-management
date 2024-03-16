@@ -6,6 +6,7 @@ import io.smallrye.common.constraint.NotNull;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class GetOutletDto {
@@ -17,6 +18,9 @@ public class GetOutletDto {
 
         public List<TableEvent> tableEvents;
 
+        public Date created_at;
+        public Date updated_at;
+
         public Response() {
             this.tableEvents = new ArrayList<>();
         }
@@ -27,5 +31,8 @@ public class GetOutletDto {
         public String table_status;
         public Integer table_usage_capacity;
         public Integer table_max_capacity;
+
+        public Date created_at;
+        public Date updated_At;
     }
 }

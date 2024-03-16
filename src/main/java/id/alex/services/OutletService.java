@@ -3,6 +3,7 @@ package id.alex.services;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import id.alex.dao.OutletDao;
+import id.alex.dto.outlet.AddOutletDto;
 import id.alex.dto.outlet.GetOutletDto;
 import id.alex.dto.outlet.RequestOutletDto;
 import id.alex.handlers.ValidationHandlerException;
@@ -28,10 +29,6 @@ public class OutletService {
 
     public List<GetOutletDto.Response> getAll()  {
         List<OutletMapping.GetOutlet> response = outletDao.getAll();
-        if (response.isEmpty()) {
-            throw new ValidationHandlerException(Response.Status.NOT_FOUND);
-        }
-
         return getResponseList(response);
     }
 
@@ -49,6 +46,8 @@ public class OutletService {
             data.id = outlet.id;
             data.name = outlet.name;
             data.companyId = outlet.company_id;
+            data.created_at = outlet.created_at;
+            data.updated_at = outlet.updated_at;
             for (OutletMapping.GetOutlet row : outlets){
                 if (row.table_name != null){
                     GetOutletDto.TableEvent tableEvent = new GetOutletDto.TableEvent();
@@ -56,6 +55,8 @@ public class OutletService {
                     tableEvent.table_status = row.table_status;
                     tableEvent.table_max_capacity = row.table_max_capacity;
                     tableEvent.table_name = row.table_name;
+                    tableEvent.created_at = row.created_at;
+                    tableEvent.updated_At = row.updated_at;
 
                     data.tableEvents.add(tableEvent);
                 }
@@ -75,7 +76,7 @@ public class OutletService {
 
     }
 
-    public void create(RequestOutletDto request) throws ValidationHandlerException {
+    public void create(AddOutletDto request) throws ValidationHandlerException {
         validateRequest.validate(request);
         outletDao.create(request);
     }

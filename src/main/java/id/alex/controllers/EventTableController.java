@@ -30,14 +30,14 @@ public class EventTableController {
     public Response getAll()
     {
         List<GetEventTableDto> list = eventTableService.getAll();
-        return responseHandler.response(Response.Status.OK, list);
+        return responseHandler.success(list);
     }
 
     @GET
     @Path("{id}")
     public Response findById(@PathParam("id") String id) {
-        EventTableMapping.GetEventTable list = eventTableService.findById(id);
-        return responseHandler.response(Response.Status.OK, list);
+        EventTableMapping.GetEventTable table_usage = eventTableService.findById(id);
+        return responseHandler.success(table_usage);
     }
 
     @POST
@@ -45,7 +45,7 @@ public class EventTableController {
     @Transactional
     public Response create(AddEventTableDto request) {
         eventTableService.create(request);
-        return responseHandler.response(Response.Status.OK);
+        return responseHandler.success();
     }
 
     @PUT
@@ -54,13 +54,13 @@ public class EventTableController {
     @Transactional
     public Response update(@PathParam("id") String id, UpdateEventTableDto request) {
         eventTableService.update(id, request);
-        return responseHandler.response(Response.Status.OK);
+        return responseHandler.success();
     }
 
     @DELETE
     @Path("{id}")
     public Response delete(@PathParam("id") String id){
         eventTableService.delete(id);
-        return responseHandler.response(Response.Status.OK);
+        return responseHandler.success();
     }
 }

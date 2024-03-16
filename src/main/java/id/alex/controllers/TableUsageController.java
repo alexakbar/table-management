@@ -31,14 +31,14 @@ public class TableUsageController {
     public Response getAll()
     {
         List<GetTableUsageDto> list = tableUsageService.getAll();
-        return responseHandler.response(Response.Status.OK, list);
+        return responseHandler.success(list);
     }
 
     @GET
     @Path("{id}")
     public Response findById(@PathParam("id") String id) {
         TableUsageMapping.GetTableUsage list = tableUsageService.findById(id);
-        return responseHandler.response(Response.Status.OK, list);
+        return responseHandler.success(list);
     }
 
     @POST
@@ -46,7 +46,7 @@ public class TableUsageController {
     @Transactional
     public Response create(AddTableUsageDto request) {
         tableUsageService.create(request);
-        return responseHandler.response(Response.Status.OK);
+        return responseHandler.success();
     }
 
     @PUT
@@ -55,29 +55,27 @@ public class TableUsageController {
     @Transactional
     public Response update(@PathParam("id") String id, UpdateTableUsageDto request) {
         tableUsageService.update(id, request);
-        return responseHandler.response(Response.Status.OK);
+        return responseHandler.success();
     }
 
     @DELETE
     @Path("{id}")
     public Response delete(@PathParam("id") String id) {
         tableUsageService.delete(id);
-        return responseHandler.response(Response.Status.OK);
+        return responseHandler.success();
     }
 
     @POST
     @Path("use-table")
     @Transactional
     public Response useTable(UseTableUsageDto request) {
-        tableUsageService.useTable(request);
-        return responseHandler.response(Response.Status.OK);
+        return tableUsageService.useTable(request);
     }
 
     @POST
     @Path("{id}/finsih-table")
     @Transactional
     public Response finishTable(@PathParam("id") String id) {
-        tableUsageService.finishTable(id);
-        return responseHandler.response(Response.Status.OK);
+        return tableUsageService.finishTable(id);
     }
 }
