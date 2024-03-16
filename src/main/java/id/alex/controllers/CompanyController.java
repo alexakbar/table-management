@@ -3,6 +3,7 @@ package id.alex.controllers;
 import id.alex.dto.company.RequestCompanyDto;
 import id.alex.dto.company.GetCompanyDto;
 import id.alex.handlers.ResponseHandler;
+import id.alex.models.mapping.CompanyMapping;
 import id.alex.services.CompanyService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -30,7 +31,7 @@ public class CompanyController {
     @GET
     @Path("{id}")
     public Response findById(@PathParam("id") String id) {
-        List<GetCompanyDto> list = companyService.findById(id);
+        CompanyMapping.GetCompany list = companyService.findById(id);
         return responseHandler.response(Response.Status.OK, list);
     }
 

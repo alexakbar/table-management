@@ -22,10 +22,10 @@ public class CompanyDao {
         return entityManager.createNativeQuery(q, CompanyMapping.GetCompany.MAPPING_NAME).getResultList();
     }
 
-    public List<GetCompanyDto> findById(String id) {
-        String q = "SELECT * FROM companies where id = :id ";
-        return  entityManager.createNativeQuery(q, CompanyMapping.GetCompany.MAPPING_NAME).
-                setParameter("id", id).getResultList();
+    public CompanyMapping.GetCompany findById(String id) {
+        StringBuilder q = new StringBuilder("SELECT * FROM companies where id = :id ");
+        return (CompanyMapping.GetCompany) entityManager.createNativeQuery(q.toString(), CompanyMapping.GetCompany.MAPPING_NAME).
+                setParameter("id", id).getSingleResult();
     }
 
     public void create(RequestCompanyDto request) {

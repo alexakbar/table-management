@@ -5,6 +5,7 @@ import id.alex.dto.company.RequestCompanyDto;
 import id.alex.dto.company.GetCompanyDto;
 import id.alex.handlers.ValidationHandlerException;
 import id.alex.helpers.ValidateRequest;
+import id.alex.models.mapping.CompanyMapping;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -23,7 +24,7 @@ public class CompanyService {
         return  companyDao.getAll();
     }
 
-    public List<GetCompanyDto> findById(String Id){
+    public CompanyMapping.GetCompany findById(String Id){
         return companyDao.findById(Id);
     }
 
